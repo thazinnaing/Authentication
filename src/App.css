@@ -36,3 +36,10 @@ input{
     font-size: 15px;
 
 }
+.non-block{
+    display: none;
+}
+.invalid{
+    display: block;
+    color: red;
+}

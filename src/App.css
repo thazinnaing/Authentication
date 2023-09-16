@@ -34,7 +34,9 @@ input{
     border: none;
     margin-right: 10px;
     font-size: 15px;
-
+}
+.login-btn{
+    color: blue;
 }
 .non-block{
     display: none;
@@ -42,4 +44,14 @@ input{
 .invalid{
     display: block;
     color: red;
+}
+.success{
+    color: rgb(28, 139, 28);
+    
+}
+.unsuccess{
+    color: red;
+}
+.check, .cross{
+    margin-left: 15px;
 }

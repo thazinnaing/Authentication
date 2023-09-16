@@ -1,6 +1,8 @@
-import { faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
+
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const USER_REGEX= /^[A-Za-z][A-Za-z0-9\-_\s]{3,}$/;
@@ -28,6 +30,7 @@ const Register=()=>{
     const canSubmit=[userName, password, confirmPassword].every(Boolean);
     const handleSubmit=[validName, matchPassword].every(Boolean)
 
+
     console.log("userName", userName)
     console.log("password", password)
     console.log("confirmpassword", confirmPassword)
@@ -36,6 +39,10 @@ const Register=()=>{
     console.log("handleSubmit",handleSubmit)
     console.log("success", success)
     console.log("submit", submit)
+
+    useEffect(()=>{
+        userRef.current.focus();
+    },[])
 
     useEffect(()=>{
         const result=USER_REGEX.test(userName);
@@ -68,18 +75,21 @@ const Register=()=>{
         setSubmit(x=> !x)
         setSuccess(handleSubmit)
     }
+
+    
     
     return(
         <section className="register-container">
             <h2>Register Form</h2>
             {
-               submit && success ? <p>Registration Successful!</p> : <p>Registration Unsuccessful!</p>
+               submit && ( success ? <h2 className="success">Registration Successful  <span className="check"><FontAwesomeIcon icon={faCheck} /></span></h2> : <h3 className="unsuccess">Registration Unsuccessful : <span className="cross"><FontAwesomeIcon icon={faXmark} /></span></h3>)
             }
             <form className="form-container" autoComplete="off">
                 <label htmlFor="userName">UserName: </label>
                 <input 
                     type="text"
                     id="userName"
+                    ref={userRef}
                     value={userName}
                     onChange={(e)=> setUserName(e.target.value)}
                 />
@@ -91,6 +101,7 @@ const Register=()=>{
                 <input 
                     type="password"
                     id="password"
+                    autoComplete="off"
                     value={password}
                     onChange={(e)=> setPassword(e.target.value)}
                 />
@@ -105,6 +116,13 @@ const Register=()=>{
                     value={confirmPassword}
                     onChange={(e)=> setConfirmPassword(e.target.value)}
                 />
+                {
+                    confirmPassword && <p className={validConfirmPassword ? "non-block" : "invalid"}>! invalid confirmPassword.<br/> You can enter from 8 characters including at least small letter, capital letter, number and special character like !@#$%.</p>
+                }
+
+                {
+                    submit && (!matchPassword && <h3 className="unsuccess">Passwords are not same!</h3>)
+                }
 
                 <div className="btn-container">
                 <button className="register-btn"

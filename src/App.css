@@ -1,5 +1,5 @@
 
-.register-container{
+.register-container,.login-container{
     margin: 20px;
     display: flex;
     gap: 30px;
